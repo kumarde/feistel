@@ -15,5 +15,6 @@ import(
 
 cipher := feistel.New()
 msg = []byte{"This is a cool message that needs to be encrypted."}
-cipher.Encrypt(msg)
+encryptedMsg := cipher.Encrypt(msg)
+decryptedMsg := cipher.Decrypt(encryptedMsg)
 ```
