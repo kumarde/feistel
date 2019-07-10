@@ -53,7 +53,7 @@ func readKeysFromFile(fname string) ([][]byte, error) {
 	size := stats.Size()
 	bytes := make([]byte, size)
 
-	if size != ROUNDS * KEY_SIZE {
+	if size != ROUNDS*KEY_SIZE {
 		return nil, errors.New("wrong number of bytes in feistel key file")
 	}
 
@@ -67,7 +67,7 @@ func readKeysFromFile(fname string) ([][]byte, error) {
 	for i := 0; i < ROUNDS; i++ {
 		key := make([]byte, 0)
 		for j := 0; j < KEY_SIZE; j++ {
-			key = append(key, bytes[i * KEY_SIZE + j])
+			key = append(key, bytes[i*KEY_SIZE+j])
 		}
 		keys = append(keys, key)
 	}
@@ -76,7 +76,7 @@ func readKeysFromFile(fname string) ([][]byte, error) {
 }
 
 func writeKeysToFile(keys [][]byte, fname string) error {
-	fullBytes := make([]byte,0)
+	fullBytes := make([]byte, 0)
 
 	for _, key := range keys {
 		fullBytes = append(fullBytes, key...)
@@ -90,7 +90,7 @@ func writeKeysToFile(keys [][]byte, fname string) error {
 	defer f.Close()
 
 	bufw := bufio.NewWriter(f)
-	num, err := bufw.Write(fullBytes)
+	_, err = bufw.Write(fullBytes)
 	if err != nil {
 		return err
 	}
@@ -98,8 +98,6 @@ func writeKeysToFile(keys [][]byte, fname string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(len(fullBytes))
-	fmt.Println(num)
 
 	return nil
 }
@@ -147,7 +145,7 @@ func xorByteArrays(a []byte, b []byte) []byte {
 		log.Errorf("Length of arrays are not the same.")
 	}
 	out := make([]byte, len(a))
-	for i, _ := range a {
+	for i := range a {
 		out[i] = a[i] ^ b[i]
 	}
 	return out
